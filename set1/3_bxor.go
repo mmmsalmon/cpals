@@ -9,14 +9,14 @@ import (
 )
 
 // for sorting a map later
-type kv struct {
+type Kv struct {
 	Key   string
 	Value int
 }
 
 // take a sample text and 'score' it by measuring character frequency
 // 'filename' should point to a file with a single line of text
-func Scoring(filename string) []kv {
+func Scoring(filename string) []Kv {
 	text, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -29,9 +29,9 @@ func Scoring(filename string) []kv {
 		m[string(val)]++
 	}
 
-	var ss []kv
+	var ss []Kv
 	for k, v := range m {
-		ss = append(ss, kv{k, v})
+		ss = append(ss, Kv{k, v})
 	}
 	sort.Slice(ss, func(i, j int) bool { return ss[i].Value > ss[j].Value })
 

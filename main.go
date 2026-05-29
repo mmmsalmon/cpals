@@ -3,6 +3,8 @@ package main
 import (
 	"cpals/set1"
 	"fmt"
+	"strings"
+	"unicode"
 )
 
 func main() {
@@ -16,9 +18,13 @@ func main() {
 	score := set1.Scoring("txt/jabberwock.txt")
 	fmt.Println(score)
 	for _, v := range score {
-		fmt.Printf("%s: ", v.Key)
-		fmt.Println(set1.Bxor("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736", v.Key))
+		out := set1.Bxor("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736", v.Key)
+		if strings.IndexFunc(out, unicode.IsControl) == -1 {
+			fmt.Printf("%s: ", v.Key)
+			fmt.Println(out)
+		}
 	}
 
 	// Challenge 4 detect single-character xor
+	set1.Sxor("txt/4.txt", score)
 }
