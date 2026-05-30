@@ -2,21 +2,23 @@ package set1
 
 import (
 	"encoding/hex"
+	"fmt"
 	"log"
 	"os"
 	"sort"
 	"strings"
+	"unicode"
 )
 
 // for sorting a map later
-type Kv struct {
+type kv struct {
 	Key   string
 	Value int
 }
 
 // take a sample text and 'score' it by measuring character frequency
 // 'filename' should point to a file with a single line of text
-func Scoring(filename string) []Kv {
+func scoring(filename string) []kv {
 	text, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -29,9 +31,9 @@ func Scoring(filename string) []Kv {
 		m[string(val)]++
 	}
 
-	var ss []Kv
+	var ss []kv
 	for k, v := range m {
-		ss = append(ss, Kv{k, v})
+		ss = append(ss, kv{k, v})
 	}
 	sort.Slice(ss, func(i, j int) bool { return ss[i].Value > ss[j].Value })
 
@@ -47,4 +49,15 @@ func Bxor(x, y string) string {
 		z_bytes[i] = x_bytes[i] ^ key[0]
 	}
 	return string(z_bytes)
+}
+
+func Score_decipher(filename, hexstring string) {
+	score := scoring(filename)
+	for _, v := range score {
+		out := Bxor(hexstring, v.Key)
+		if strings.IndexFunc(out, unicode.IsControl) == -1 {
+			fmt.Printf("%s: ", v.Key)
+			fmt.Println(out)
+		}
+	}
 }
