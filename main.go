@@ -26,5 +26,5 @@ func main() {
 	}
 
 	// Challenge 4 detect single-character xor
-	set1.Sxor("txt/4.txt", score)
+	set1.Sxor("txt/4.txt")
 }
