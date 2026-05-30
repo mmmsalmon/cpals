@@ -13,8 +13,11 @@ func main() {
 	fmt.Println(set1.Xor("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
 
 	// Challenge 3 single-byte xor cipher
-	set1.Score_decipher("txt/jabberwock.txt", "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
+	set1.ScoreDecipher("txt/jabberwock.txt", "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
 
 	// Challenge 4 detect single-character xor
 	set1.Sxor("txt/4.txt")
+
+	// Challenge 5 implement repeating-key xor
+	set1.RepeatingXOR("txt/5.txt", "ICE")
 }

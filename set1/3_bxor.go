@@ -51,7 +51,7 @@ func Bxor(x, y string) string {
 	return string(z_bytes)
 }
 
-func Score_decipher(filename, hexstring string) {
+func ScoreDecipher(filename, hexstring string) {
 	score := scoring(filename)
 	for _, v := range score {
 		out := Bxor(hexstring, v.Key)
