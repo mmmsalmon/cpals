@@ -18,4 +18,5 @@ func main() {
 
 	// Challenge 6 break repeating-key xor
 	//fmt.Println(set1.HammingDistance([]byte("this is a test"), []byte("wokka wokka!!!")))
+	//fmt.Println(set1.FindKeysize("txt/6.txt")) // result is 3
 }
