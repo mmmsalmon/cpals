@@ -1,5 +1,9 @@
 package main
 
+import (
+	"cpals/set1"
+)
+
 func main() {
 	// Challenge 1 convert hex to base64
 	//fmt.Println(set1.B64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"))
@@ -19,4 +23,6 @@ func main() {
 	// Challenge 6 break repeating-key xor
 	//fmt.Println(set1.HammingDistance([]byte("this is a test"), []byte("wokka wokka!!!")))
 	//fmt.Println(set1.FindKeysize()) // map[2:9 3:29]
+	//fmt.Println(set1.Transpose(2))
+	set1.SxorBlocks(2)
 }
