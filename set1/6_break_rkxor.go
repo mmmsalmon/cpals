@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"slices"
+	"sort"
 	"unicode/utf8"
 )
 
@@ -46,7 +47,7 @@ func findKeysize() map[int]int {
 }
 
 // make blocks/chunks containing the nth byte of every chunk
-func transpose(ks int) [][]byte {
+func Transpose(ks int) [][]byte {
 	chunks := slices.Chunk(open6(), ks)
 	transposedBlocks := [][]byte{}
 	for range ks {
@@ -57,19 +58,30 @@ func transpose(ks int) [][]byte {
 	return transposedBlocks
 }
 
+// #3/#4 put together to fit #6
 func SxorBlocks(ks int) {
-	var blocks [][]byte = transpose(ks)
-	for block := range blocks {
-		bloques := make([]byte, ks)
+	m := make(map[string]int)
+	for _, block := range Transpose(ks) {
 		for k := range 256 {
-			key := string([]byte{byte(k)})
+			var out []byte
 			for i := range ks {
-				bloques[i] = byte(block) ^ key[0]
+				out = append(out, block[i]^byte(k))
 			}
-			if utf8.ValidString(string(bloques)) {
-				fmt.Printf("%s: ", key)
-				fmt.Println(string(bloques))
+			if utf8.ValidString(string(out)) && len(out) == ks {
+				m[string(out)]++
+			}
+			if string(out) == "ie" {
+				fmt.Printf("%d: %s\n", k, string(out))
 			}
 		}
+	}
+
+	var ss []kv
+	for k, v := range m {
+		ss = append(ss, kv{k, v})
+	}
+	sort.Slice(ss, func(i, j int) bool { return ss[i].Value > ss[j].Value })
+	for _, kv := range ss[:150] {
+		fmt.Printf("%s:%d\n", kv.Key, kv.Value) // should be 'IE'
 	}
 }
